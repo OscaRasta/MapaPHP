@@ -57,7 +57,7 @@ function send( text )
 }
 $(document).ready(function() 
 {
-	Server = new FancyWebSocket('ws://192.168.1.67:12345');
+	Server = new FancyWebSocket('https://univomaps.herokuapp.com/');
     Server.bind('open', function()
 	{
     });
