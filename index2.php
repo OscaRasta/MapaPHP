@@ -4,7 +4,7 @@
     <title>Cliente</title>
 	   <script src="https://js.pusher.com/3.2/pusher.min.js"></script>
 
-
+	<script>
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
 
@@ -16,6 +16,7 @@
     channel.bind('my_event', function(data) {
       alert(data.message);
     });
+		</script>
 	  
 	  
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
