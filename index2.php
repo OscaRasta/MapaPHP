@@ -2,6 +2,22 @@
 <html>
   <head>
     <title>Cliente</title>
+	   <script src="https://js.pusher.com/3.2/pusher.min.js"></script>
+
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('b6354b8b46c522b83cd2', {
+      encrypted: true
+    });
+
+    var channel = pusher.subscribe('test_channel');
+    channel.bind('my_event', function(data) {
+      alert(data.message);
+    });
+	  
+	  
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <style>
