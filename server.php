@@ -59,6 +59,6 @@ $Server->bind('message', 'wsOnMessage');
 $Server->bind('open', 'wsOnOpen');
 $Server->bind('close', 'wsOnClose');
 
-$Server->wsStartServer('143.0.104.213',12345);
+$Server->wsStartServer('https://univomaps.herokuapp.com/'));
 
 ?>
