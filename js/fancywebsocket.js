@@ -4,28 +4,27 @@ var FancyWebSocket = function(url)
 	var ws_url = url;
 	var conn;
 
-	this.bind = function(event_name, callback)
-	{
+	this.bind = function(event_name, callback){
 		callbacks[event_name] = callbacks[event_name] || [];
 		callbacks[event_name].push(callback);
-		return this;
+		return this;// chainable
 	};
 
-	this.send = function(event_name, event_data)
-	{
+	this.send = function(event_name, event_data){
 		this.conn.send( event_data );
 		return this;
 	};
 
-	this.connect = function()
-	{
-		if ( typeof(MozWebSocket) == 'function' )
-		this.conn = new MozWebSocket(url);
-		else
-		this.conn = new WebSocket(url);
+	this.connect = function() {            
+		if ( typeof(MozWebSocket) != 'undefined' ){
+			this.conn = new MozWebSocket(url);
+                }
+		else if ( typeof(WebSocket) != 'undefined' ){
+			this.conn = new WebSocket(url);
+                }
 
-		this.conn.onmessage = function(evt)
-		{
+		// dispatch to the right handlers
+		this.conn.onmessage = function(evt){
 			dispatch('message', evt.data);
 		};
 
@@ -33,39 +32,15 @@ var FancyWebSocket = function(url)
 		this.conn.onopen = function(){dispatch('open',null)}
 	};
 
-	this.disconnect = function()
-	{
+	this.disconnect = function() {
 		this.conn.close();
 	};
 
-	var dispatch = function(event_name, message)
-	{
-		if(message == null || message == "")//aqui es donde se realiza toda la accion
-			{
-			}
-			else
-			{
-				pocision(message);
-			}
+	var dispatch = function(event_name, message){
+		var chain = callbacks[event_name];
+		if(typeof chain == 'undefined') return; // no callbacks for this event
+		for(var i = 0; i < chain.length; i++){
+			chain[i]( message )
+		}
 	}
 };
-
-var Server;
-function send( text )
-{
-    Server.send( 'message', text );
-}
-$(document).ready(function()
-{
-	Server = new FancyWebSocket('ws://143.0.104.213:12345');
-    Server.bind('open', function()
-	{
-    });
-    Server.bind('close', function( data )
-	{
-    });
-    Server.bind('message', function( payload )
-	{
-    });
-    Server.connect();
-});
