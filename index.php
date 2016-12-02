@@ -1,19 +1,3 @@
-<?php
-  require('Pusher.php');
-
-  $options = array(
-    'encrypted' => true
-  );
-  $pusher = new Pusher(
-    'b6354b8b46c522b83cd2',
-    'e8675665cb0350392249',
-    '276281',
-    $options
-  );
-
-  $data['message'] = 'hello world';
-  $pusher->trigger('test_channel', 'my_event', $data);
-?>
 
 <!DOCTYPE html>
 <html>
@@ -129,4 +113,21 @@ function pocision(newpocision)//recibimos la nueva pocision del socket
     <div id="map-canvas"> </div>
   </body>
 </html>
+<?php
+  require('Pusher.php');
+
+  $options = array(
+    'encrypted' => true
+  );
+  $pusher = new Pusher(
+    'b6354b8b46c522b83cd2',
+    'e8675665cb0350392249',
+    '276281',
+    $options
+  );
+
+  $data['message'] = 'hello world';
+  $pusher->trigger('test_channel', 'my_event', $data);
+?>
+
 
